@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream text-primary font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.cream.DEFAULT'); 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: theme('colors.primary.DEFAULT'); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.accent.DEFAULT'); 
+}
