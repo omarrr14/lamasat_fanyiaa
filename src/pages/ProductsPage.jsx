@@ -1,22 +1,65 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import SectionTitle from '../components/ui/SectionTitle';
 import ProductCard from '../components/ui/ProductCard';
-import { products, categories } from '../data/mockData';
+import { getProducts, getCoupons } from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, Search } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
 
 export default function ProductsPage() {
-  const [activeCategory, setActiveCategory] = useState('الكل');
   const [searchQuery, setSearchQuery] = useState('');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const [productsRes, couponsRes] = await Promise.allSettled([getProducts(), getCoupons()]);
+        const apiProducts = productsRes.status === 'fulfilled' ? productsRes.value.data : [];
+        const coupons = couponsRes.status === 'fulfilled' ? couponsRes.value.data : [];
+
+        const couponById = coupons.reduce((acc, coupon) => {
+          if (coupon?.id != null) acc[coupon.id] = coupon;
+          return acc;
+        }, {});
+
+        const enrichedProducts = apiProducts.map((product) => {
+          const links = Array.isArray(product.productCoupons) ? product.productCoupons : [];
+          const couponRef = links[0];
+          const coupon = couponRef?.coupon || couponById[couponRef?.couponId] || couponRef;
+          const isActive = coupon && coupon.isActive !== false && (!coupon.expiryDate || new Date(coupon.expiryDate).getTime() > Date.now());
+
+          return {
+            ...product,
+            activeCoupon: isActive ? coupon : null,
+          };
+        });
+
+        setProducts(enrichedProducts);
+      } catch (e) {
+        console.error("Failed to fetch products", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      const matchCategory = activeCategory === 'الكل' || product.category === activeCategory;
+      const productCategory = product.category || 'عام';
       const matchSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          product.category.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchCategory && matchSearch;
+                          (productCategory && productCategory.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [searchQuery, products]);
+
+  if (loading) {
+     return (
+        <div className="min-h-screen bg-cream flex justify-center items-center">
+            <Loader2 className="animate-spin text-primary" size={48} />
+        </div>
+     )
+  }
 
   return (
     <div className="bg-cream min-h-screen py-24 px-6 md:px-12 pt-40">
@@ -27,24 +70,7 @@ export default function ProductsPage() {
         />
 
         {/* Filters and Search */}
-        <div className="flex flex-col lg:flex-row gap-8 items-center justify-between mb-16 px-4 py-8 bg-white/50 backdrop-blur-md rounded-[3rem] border border-white/40 shadow-xl shadow-primary/5">
-           {/* Category Toggles */}
-           <div className="flex flex-wrap justify-center gap-3">
-             <FilterBtn 
-               active={activeCategory === 'الكل'} 
-               onClick={() => setActiveCategory('الكل')} 
-               text="الكل" 
-             />
-             {categories.map((cat) => (
-               <FilterBtn 
-                 key={cat.id} 
-                 active={activeCategory === cat.name} 
-                 onClick={() => setActiveCategory(cat.name)} 
-                 text={cat.name} 
-               />
-             ))}
-           </div>
-
+        <div className="flex items-center justify-center mb-16 px-4 py-8 bg-white/50 backdrop-blur-md rounded-[3rem] border border-white/40 shadow-xl shadow-primary/5">
            {/* Search Bar */}
            <div className="relative w-full lg:max-w-md">
              <input
@@ -93,7 +119,7 @@ export default function ProductsPage() {
             <h3 className="text-2xl font-bold text-primary/40">عذراً، لم نجد نتائج لطلبك</h3>
             <p className="text-primary/30 mt-2 font-medium">جرب البحث بكلمة مفتاحية مختلفة أو فئة أخرى</p>
             <button 
-              onClick={() => {setActiveCategory('الكل'); setSearchQuery('');}}
+              onClick={() => setSearchQuery('')}
               className="mt-8 text-accent font-bold border-b-2 border-accent hover:text-primary hover:border-primary transition-colors pb-1"
             >
               عرض جميع المنتجات
@@ -102,20 +128,5 @@ export default function ProductsPage() {
         )}
       </div>
     </div>
-  );
-}
-
-function FilterBtn({ active, onClick, text }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 border-2 ${
-        active 
-        ? 'bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-105' 
-        : 'text-primary border-primary/10 hover:border-accent hover:text-accent hover:bg-accent/5'
-      }`}
-    >
-      {text}
-    </button>
   );
 }

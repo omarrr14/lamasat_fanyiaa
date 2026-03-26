@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import HeroSection from '../components/home/HeroSection';
 import SectionTitle from '../components/ui/SectionTitle';
@@ -5,11 +6,29 @@ import ImageCard from '../components/ui/ImageCard';
 import GalleryGrid from '../components/ui/GalleryGrid';
 import ContactSection from '../components/home/ContactSection';
 import ProductCard from '../components/ui/ProductCard';
-import { categories, featuredProjects, products } from '../data/mockData';
-import { Shield, Sparkles, Zap, ArrowLeft } from 'lucide-react';
+import { categories, featuredProjects } from '../data/mockData';
+import { getProducts } from '../services/api';
+import { Shield, Sparkles, Zap, ArrowLeft, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await getProducts();
+        setProducts(res.data);
+      } catch (e) {
+        console.error("Failed to fetch products", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <HeroSection />
@@ -42,6 +61,11 @@ export default function HomePage() {
             subtitle="جديدنا" 
             title="منتجات تخطف الأنظار" 
           />
+          {loading ? (
+             <div className="flex justify-center p-12">
+                <Loader2 className="animate-spin text-primary" size={32} />
+             </div>
+          ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.slice(0, 4).map((product, idx) => (
               <ProductCard 
@@ -51,6 +75,7 @@ export default function HomePage() {
               />
             ))}
           </div>
+          )}
           <div className="text-center mt-16">
             <Link to="/products" className="inline-block bg-primary text-white px-10 py-4 rounded-2xl text-lg font-black hover:bg-accent hover:text-white transition-all duration-300 shadow-xl shadow-primary/5">
               تصفح كل المنتجات
