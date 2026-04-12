@@ -7,22 +7,28 @@ export default function ImageCard({ image, title, description, delay = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      className="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer bg-white"
+      className="group flex flex-col bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-50"
     >
-      <div className="aspect-[4/5] w-full overflow-hidden">
+      {/* Image Container */}
+      <div className="aspect-[4/5] w-full overflow-hidden relative">
         <img 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Subtle Overlay on Hover */}
+        <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-        <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+      {/* Content Section - BELOW the image */}
+      <div className="p-8 space-y-3 bg-white flex flex-col items-start text-right">
+        <div className="w-12 h-1 bg-accent/20 rounded-full group-hover:w-20 transition-all duration-500" />
+        <h3 className="text-2xl font-black text-primary group-hover:text-accent transition-colors duration-300">
+          {title}
+        </h3>
         {description && (
-          <p className="text-cream/90 text-sm overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+          <p className="text-primary/60 text-base leading-relaxed font-medium">
             {description}
           </p>
         )}

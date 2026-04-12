@@ -21,12 +21,7 @@ export default function GalleryGrid({ items }) {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute bottom-0 p-5">
-              <p className="text-accent text-xs font-semibold mb-1 uppercase tracking-widest">{item.category}</p>
-              <h4 className="text-white text-lg font-bold">{item.title}</h4>
-            </div>
-          </div>
+          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </motion.div>
       ))}
     </div>

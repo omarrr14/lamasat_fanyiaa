@@ -27,7 +27,7 @@ export default function ContactSection() {
               <ContactCard
                 icon={<Phone className="text-accent" />}
                 title="اتصل بنا"
-                info="+966 500 000 000"
+                info="+966 54 409 9765"
                 delay={0.1}
               />
               <ContactCard

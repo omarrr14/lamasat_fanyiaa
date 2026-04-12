@@ -29,11 +29,17 @@ export default {
         'spin-slow': 'spin 8s linear infinite',
         'float': 'float 6s ease-in-out infinite',
         'bounce-slow': 'bounce 4s infinite',
+        'ken-burns': 'ken-burns 20s ease-in-out infinite alternate',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        'ken-burns': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.15) translate(2%, 2%)' },
         }
       }
     },

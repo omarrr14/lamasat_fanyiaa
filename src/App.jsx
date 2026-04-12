@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen bg-cream">
       <Navbar />
-      <main className="flex-grow pt-20">
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />

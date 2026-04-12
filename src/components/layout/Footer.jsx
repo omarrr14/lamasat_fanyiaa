@@ -65,17 +65,18 @@ export default function Footer() {
               <ContactItem 
                 icon={<Phone className="text-accent" size={20} />} 
                 title="اتصل بنا" 
-                text="+966 500 000 000" 
+                text="+966 54 409 9765" 
               />
               <ContactItem 
                 icon={<Mail className="text-accent" size={20} />} 
                 title="البريد الإلكتروني" 
-                text="info@lamasatafania.com" 
+                text="lamasatfanyaa4@gmail.com" 
               />
               <ContactItem 
                 icon={<MapPin className="text-accent" size={20} />} 
                 title="الموقع" 
-                text="المنطقة الصناعية، الرياض، السعودية" 
+                text="الرياض، المملكة العربية السعودية"
+                href="https://www.google.com/maps/place/24%C2%B037'35.3%22N+46%C2%B052'05.2%22E/@24.6264801,46.8655281,17z"
               />
             </div>
           </div>
@@ -115,14 +116,23 @@ function FooterLink({ to, text }) {
   );
 }
 
-function ContactItem({ icon, title, text }) {
-  return (
-    <div className="flex gap-4 group">
+function ContactItem({ icon, title, text, href }) {
+  const content = (
+    <div className="flex gap-4 group cursor-pointer">
       <div className="mt-1 transition-transform duration-300 group-hover:scale-110">{icon}</div>
       <div>
         <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">{title}</p>
-        <p className="text-white/80 text-sm font-medium">{text}</p>
+        <p className={`text-sm font-medium transition-colors duration-200 ${href ? 'text-white/80 group-hover:text-accent' : 'text-white/80'}`}>{text}</p>
       </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="block">
+        {content}
+      </a>
+    );
+  }
+  return content;
 }

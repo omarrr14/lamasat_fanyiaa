@@ -6,22 +6,25 @@ import ImageCard from '../components/ui/ImageCard';
 import GalleryGrid from '../components/ui/GalleryGrid';
 import ContactSection from '../components/home/ContactSection';
 import ProductCard from '../components/ui/ProductCard';
-import { categories, featuredProjects } from '../data/mockData';
+import { categories, featuredProjects, products as mockProducts } from '../data/mockData';
 import { getProducts } from '../services/api';
 import { Shield, Sparkles, Zap, ArrowLeft, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(mockProducts.slice(0, 4));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const res = await getProducts();
-        setProducts(res.data);
+        if (res.data && res.data.length > 0) {
+          setProducts(res.data);
+        }
       } catch (e) {
         console.error("Failed to fetch products", e);
+        // Fallback already set in useState
       } finally {
         setLoading(false);
       }
@@ -40,7 +43,7 @@ export default function HomePage() {
             subtitle="خدماتنا المتميزة" 
             title="كل ما تحتاجه لمنزل عصري" 
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((cat, idx) => (
               <ImageCard 
                 key={cat.id} 
@@ -96,14 +99,13 @@ export default function HomePage() {
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
              transition={{ duration: 0.8 }}
-             className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl"
+             className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 group"
            >
              <img 
-               src="/images/IMG-20260323-WA0029.jpg" 
+               src="/images/قصتنا وبدايتنا.jpeg" 
                alt="Craftsmanship" 
-               className="w-full h-full object-cover"
+               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
              />
-             <div className="absolute inset-0 bg-primary/20 backdrop-blur-[2px]" />
            </motion.div>
 
            <motion.div

@@ -8,56 +8,55 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto space-y-32">
         {/* Story Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-           <motion.div
-             initial={{ opacity: 0, x: 50 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.8 }}
-             className="relative"
-           >
-              {/* Overlapping Images */}
-              <div className="relative rounded-[3rem] overflow-hidden aspect-[4/5] shadow-2xl shadow-primary/10 border-8 border-white group">
-                 <img 
-                   src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&q=80" 
-                   alt="Master Craftsman" 
-                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-                 />
-                 <div className="absolute inset-0 bg-primary/20 backdrop-blur-[1px] group-hover:opacity-0 transition-opacity duration-1000" />
-              </div>
-              <div className="absolute -bottom-12 -left-12 w-2/3 rounded-3xl overflow-hidden aspect-video shadow-2xl border-4 border-white z-10 animate-float">
-                 <img 
-                   src="https://images.unsplash.com/photo-1536640712247-c05afa5e2bc4?auto=format&fit=crop&q=80" 
-                   alt="Workshop" 
-                   className="w-full h-full object-cover"
-                 />
-              </div>
-           </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+               {/* Overlapping Images */}
+               <div className="relative rounded-[3.5rem] overflow-hidden aspect-[4/5] shadow-[0_32px_80px_-16px_rgba(0,0,0,0.6)] border-4 border-white group">
+                  <img 
+                    src="/images/قصتنا وبدايتنا.jpeg" 
+                    alt="Master Craftsman" 
+                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
+                  />
+               </div>
+               <div className="absolute -bottom-12 -left-12 w-2/3 rounded-3xl overflow-hidden aspect-video shadow-2xl border-4 border-white z-10 animate-float">
+                  <img 
+                    src="/images/kitchen4.jpg" 
+                    alt="Workshop" 
+                    className="w-full h-full object-cover"
+                  />
+               </div>
+            </motion.div>
 
-           <motion.div
-             initial={{ opacity: 0, x: -50 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.8 }}
-             className="space-y-8"
-           >
-              <div className="inline-block bg-accent px-5 py-2 rounded-full text-primary text-xs font-black tracking-widest uppercase shadow-sm">
-                 تاريخنا وقصتنا
-              </div>
-              <h1 className="text-5xl md:text-7xl font-black text-primary leading-[1.1]">
-                 نحن نكتب قصة <span className="text-accent italic drop-shadow-sm">الخشب</span> بأيدي الخبراء
-              </h1>
-              <p className="text-xl text-primary/60 leading-relaxed font-medium">
-                 بدأت رحلتنا قبل أكثر من ١٥ عاماً بشغف بسيط: تحويل قطع الخشب الصامتة إلى تحف فنية تنبض بالحياة. اليوم، نحن فخورون بأن نكون الاسم الموثوق في المملكة العربية السعودية لكل ما يخص الصناعات الخشبية.
-              </p>
-              <p className="text-lg text-primary/40 leading-relaxed max-w-xl">
-                 نحن نجمع بين التقنيات الحديثة واللمسة اليدوية الأصيلة، لنضمن لعملائنا منتجات لا تتأثر بمرور الزمن وتبقى شاهدة على الرقي والفخامة.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-8 pt-8 border-t border-primary/5">
-                 <StatItem number="15+" label="سنة من العطاء" />
-                 <StatItem number="3000+" label="عميل سعيد" />
-              </div>
-           </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+               <div className="inline-block bg-accent px-5 py-2 rounded-full text-primary text-xs font-black tracking-widest uppercase shadow-sm">
+                  عن الشركة
+               </div>
+               <h1 className="text-5xl md:text-7xl font-black text-primary leading-[1.1]">
+                  نحن نكتب قصة <span className="text-accent italic drop-shadow-sm">الخشب</span> بأيدي الخبراء
+               </h1>
+               <p className="text-xl text-primary/60 leading-relaxed font-medium">
+                  شركة اللمسات الفنية للصناعات الخشبية هي شركة مقرها الرياض، تأسست لتنفرد بجودتها وقوتها بالسوق السعودي. نحن متخصصون في تقديم خدمات التصميم والتنفيذ لجميع الأعمال الخشبية مثل الأثاث، والأبواب، والخزائن، والنجارة، والمطابخ، وإطارات الأبواب.
+               </p>
+               <p className="text-lg text-primary/40 leading-relaxed max-w-xl">
+                  نحن في هذا المجال منذ عام 2018، ونزود منطقة الرياض بأعمال خشبية عالية الجودة تتراوح من الديكورات الداخلية والخارجية إلى خزائن الأثاث والنوافذ والأبواب وخدمات النجارة الاحترافية. هدفنا هو تزويد العملاء بمنتجات استثنائية مع الحفاظ على الكفاءة في الإنتاج.
+               </p>
+               
+               <div className="grid grid-cols-2 gap-8 pt-8 border-t border-primary/5">
+                  <StatItem number="2018" label="سنة التأسيس" />
+                  <StatItem number="2500+" label="مشروع منجز" />
+               </div>
+            </motion.div>
         </section>
 
         {/* Vision & Mission */}
@@ -68,12 +67,12 @@ export default function AboutPage() {
              desc="أن نكون الشركة الرائدة عالمياً في تقديم حلول الأثاث الخشبي المخصص، وتغيير مفهوم الصناعة من خلال الابتكار المستدام والتصاميم الملهمة."
              delay={0.1}
            />
-           <AboutCard 
-             icon={<Eye size={48} className="text-accent group-hover:scale-110 transition-transform duration-500" />} 
-             title="رسالتنا"
-             desc="تقديم أعلى معايير الجودة والحرفية في كل منتج، وتوفير تجربة استثنائية لعملائنا من خلال الاهتمام بأدق التفاصيل وتحقيق أفكارهم على أرض الواقع."
-             delay={0.2}
-           />
+            <AboutCard 
+              icon={<Eye size={48} className="text-accent group-hover:scale-110 transition-transform duration-500" />} 
+              title="رسالتنا"
+              desc="مهمتنا هي ابتكار منتجات استثنائية ذات جودة عالية في التصنيع تكون جذابة وعملية للغاية، كما نقدم لعملائنا مشورة الخبراء حول كل جانب من جوانب مشروعهم من المفهوم الأولي إلى التنفيذ."
+              delay={0.2}
+            />
         </section>
 
         {/* Core Values */}
@@ -92,6 +91,65 @@ export default function AboutPage() {
                  <ValueItem icon={<Trophy size={32} />} title="المصداقية" desc="الالتزام التام بالمواعيد والمواصفات" />
               </div>
            </div>
+        </section>
+
+        {/* Location Map */}
+        <section className="space-y-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center space-y-4"
+          >
+            <div className="inline-block bg-accent px-5 py-2 rounded-full text-primary text-xs font-black tracking-widest uppercase shadow-sm">
+              موقعنا
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-primary">
+              زورونا في <span className="text-accent italic">معرضنا</span>
+            </h2>
+            <p className="text-xl text-primary/50 max-w-2xl mx-auto leading-relaxed font-medium">
+               الرياض، المملكة العربية السعودية
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative rounded-[3rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.25)] border-4 border-white group"
+            style={{ height: '500px' }}
+          >
+            {/* Gradient overlay bar at top */}
+            <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-cream to-transparent z-10 pointer-events-none" />
+            
+            <iframe
+              title="موقع شركة اللمسات الفنية"
+              src="https://maps.google.com/maps?q=24.6264801,46.868103&z=17&output=embed&hl=ar"
+              width="100%"
+              height="100%"
+              style={{ border: 0, filter: 'saturate(1.1) contrast(1.05)' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+
+            {/* Floating info card */}
+            <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-5 border border-accent/20 max-w-xs text-right">
+              <p className="text-primary font-black text-lg leading-tight mb-1">شركة اللمسات الفنية</p>
+              <p className="text-primary/50 text-sm font-medium mb-3">المنطقة الصناعية، الرياض</p>
+              <a
+                href="https://www.google.com/maps/place/24%C2%B037'35.3%22N+46%C2%B052'05.2%22E/@24.6264801,46.8655281,17z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-accent text-primary text-sm font-black px-4 py-2 rounded-xl hover:bg-primary hover:text-white transition-all duration-300"
+              >
+                <span>افتح في خرائط جوجل</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </motion.div>
         </section>
 
         {/* Team CTA */}

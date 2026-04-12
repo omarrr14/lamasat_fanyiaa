@@ -4,10 +4,11 @@ import ProductCard from '../components/ui/ProductCard';
 import { getProducts, getCoupons } from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Loader2 } from 'lucide-react';
+import { products as mockProductsData } from '../data/mockData';
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(mockProductsData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,24 +18,26 @@ export default function ProductsPage() {
         const apiProducts = productsRes.status === 'fulfilled' ? productsRes.value.data : [];
         const coupons = couponsRes.status === 'fulfilled' ? couponsRes.value.data : [];
 
-        const couponById = coupons.reduce((acc, coupon) => {
-          if (coupon?.id != null) acc[coupon.id] = coupon;
-          return acc;
-        }, {});
+        if (apiProducts.length > 0) {
+          const couponById = coupons.reduce((acc, coupon) => {
+            if (coupon?.id != null) acc[coupon.id] = coupon;
+            return acc;
+          }, {});
 
-        const enrichedProducts = apiProducts.map((product) => {
-          const links = Array.isArray(product.productCoupons) ? product.productCoupons : [];
-          const couponRef = links[0];
-          const coupon = couponRef?.coupon || couponById[couponRef?.couponId] || couponRef;
-          const isActive = coupon && coupon.isActive !== false && (!coupon.expiryDate || new Date(coupon.expiryDate).getTime() > Date.now());
+          const enrichedProducts = apiProducts.map((product) => {
+            const links = Array.isArray(product.productCoupons) ? product.productCoupons : [];
+            const couponRef = links[0];
+            const coupon = couponRef?.coupon || couponById[couponRef?.couponId] || couponRef;
+            const isActive = coupon && coupon.isActive !== false && (!coupon.expiryDate || new Date(coupon.expiryDate).getTime() > Date.now());
 
-          return {
-            ...product,
-            activeCoupon: isActive ? coupon : null,
-          };
-        });
+            return {
+              ...product,
+              activeCoupon: isActive ? coupon : null,
+            };
+          });
 
-        setProducts(enrichedProducts);
+          setProducts(enrichedProducts);
+        }
       } catch (e) {
         console.error("Failed to fetch products", e);
       } finally {
@@ -46,9 +49,10 @@ export default function ProductsPage() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
+      const productName = product.name || '';
       const productCategory = product.category || 'عام';
-      const matchSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          (productCategory && productCategory.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchSearch = productName.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          productCategory.toLowerCase().includes(searchQuery.toLowerCase());
       return matchSearch;
     });
   }, [searchQuery, products]);
